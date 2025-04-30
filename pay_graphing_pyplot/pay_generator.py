@@ -2,86 +2,117 @@ class GetPayData:
     """Used to obtain pay data in conjuction with the hours provided. They're considerations like
     time and a half that will need to be calculatesd."""
 
-    def __init__(self, hourly_rate=int, max_dollar_shown=int):
+    def __init__(self, payrate=0):
         """Initializes the atts we needs for this class and sets it up as needed."""
-        # what the rates are for specific ours could add this as a argument to be pass
-        # because itcould be situational
         self.ot_1_5 = 1.5
         self.ot_2 = 2
 
-        # this gets updated when we fetch data
-        self.total_hrs = 0
+        self.rate = payrate
 
-        self.hourly_rate = hourly_rate
-        # used to obtain the max dollar we want shown by our graph.
-        self.max_dollar_shown = max_dollar_shown
-
-        # this particular function needs work to facilitate a good method and data
-        # set to be retruned I really like the thought and idea here.
-        # self.money_to_day()
-
-        self.x_point = range(0, len(self.y_val_hours))
-
-
-
-    def _get_hrs_worked(self):
-        """Ask the user what their hrs are for each day in a week."""
-        hours_on_day = {
-        'mon':input("mon hrs: "),
-        'tues':input("tues hrs: "),
-        'wed':input("wed hrs: "),
-        'thurs':input("thurs hrs: "),
-        'fri':input("fri hrs: "),
-        'sat':input("sat hrs: "),
-        'sun':input("sun hrs: "),
-    }
-        for value in hours_on_day.values():
-            value
-        return hours_on_day
-
-# this method needs work and should not be used as of now.
-    def money_to_day(self):
-        """This could be calld as a helper to create a dictionary that prompts for input for hours 
-        worked in a day. Could see this being useful for isolating hours if over time on a specific
-        hours is paid by the employer. This method is very complex however because it also has
-        a call to another helper method which is fine but the logic here seems complicated not 
-        complex. Referr to the import this module "zen of python" to better understand."""
-        pay_on_hr = []
-        work_week = self._get_hrs_worked()
-        # we will break out of the loop once we've obtained the values we need.
-        for day, hrs in work_week.items():
-            for day in range(1, len(work_week.keys())+1):
-                # must convert to int for math
-                hrs = int(hrs)
-                # looks at the hours we get from the user input.
-                for hour in range(1, hrs+1):
-                    # value on the hour equals the hour * the hourly rate
-                    # ie: 42 * 3 = 128 on the 3rd hour it'll be 128 dollars based of
-                    # the rate the individual is paid.
+    def format_hrs_list(self): # a call to this will terminal propmt for input of hrs
+        """This obtains hrs trough a terminal prompt and in doing so used python looping
+        conventions to make a structure format we'd like. The purpose of using a list is 
+        due to how we'll handle that hour data later. The call to helper _get_hours_worked is
+        nice because it consolidates some of our code(via calling a internal helper method). 
+        However we elected to go with a dictionary. Weather or not that is the best structure is 
+        hard to say.
+        # I can say that it makes it easier for me to read as a promgrammer so,
+        # I think I'll keep it that way."""
+        formatted_hours = []
+        hours_work_week = self._get_hrs_worked()
+        for hours_on_day in hours_work_week.values():
+            if hours_on_day == '':
+                hours_on_day = 0
+            hours_on_day = int(hours_on_day)
+            temp_day_list = list(range(1, hours_on_day+1))
+            formatted_hours.append(temp_day_list)
+        return formatted_hours
+                
+    def get_rate_to_hour_data(self, formatted_list):
+        """This uses a list to easily account for the rate increate on certain hrs.
+        Should be a list of multiple list to then account for ot on weekends."""
+        rate_at_hour_list = []
+        counter = 0
+        for hour_list in formatted_list:
+            counter += 1
+            if counter < 6:
+                # rate_at_hour_list starts out empty so we conditional test to 
+                # set value to avoid the indexing error
+                if not rate_at_hour_list:
+                    value = 0
+                else:
+                    value = rate_at_hour_list[-1]
+                for hour in hour_list:
+                    # this accounts for any hr greater than 8(payrate bump)
+                    # mon throguht fri(counter)
                     if hour > 8:
-                        hour_value = pay_on_hr[-1] + (self.hourly_rate * self.ot_1_5)
-                        # add the value to a list for ease of graphing
-                        pay_on_hr.append(hour_value)
+                        value += (42 * self.ot_1_5)
+                        rate_at_hour_list.append(value)
                     else:
-                        hour_value = hour * self.hourly_rate
-                        # add the value to a list for ease of graphing
-                        pay_on_hr.append(hour_value)
-                # need a way to tally up total hours for the graph as well
-            break
-        self.y_val_hours = pay_on_hr
-        self.total_hrs = (len(pay_on_hr))
+                        value += 42
+                        rate_at_hour_list.append(value)
+            elif counter == 6:
+                # this accounts for saturdays rate
+                for hour in hour_list:
+                    value += (42 * self.ot_1_5)
+                    rate_at_hour_list.append(value)
+            elif counter == 7:
+                # this accounts for sunday
+                for hour in hour_list:
+                    value += (42 * self.ot_2)
+                    rate_at_hour_list.append(value)
+        rate_at_hour_data = rate_at_hour_list 
+        return rate_at_hour_data
+    # proof if needed(added dummy data to format hours)
+    # could make this a mathod maybe
+        # print(counter)   
+        # print(rate_at_hour_list)
+        # print(len(rate_at_hour_list))
 
-    def get_money_hour_data(self, rate, total_hours, ):
+    # hours are obtained through this method call.
+    def _get_hrs_worked(self):
+        """Ask the user what their hrs are for each day in a week. Can be called and assigned 
+        dirrectly or a call to the format_hrs will call this method pormopting for hrs. 
+        Utilizing a dict format for clairty. Looping over this later is a little more complicated 
+        later having to make a call to a .values() instead of just looping through a list. 
+        I also feel like this make give me better flexability in the long run however."""
+        hours_on_day = {
+            'mon':input("mon hrs: "),
+            'tues':input("tues hrs: "),
+            'wed':input("wed hrs: "),
+            'thurs':input("thurs hrs: "),
+            'fri':input("fri hrs: "),
+            'sat':input("sat hrs: "),
+            'sun':input("sun hrs: "),
+        }
+        return hours_on_day
+    
+    # this method should be used for the purpose of a not seeing hrs with the rate bump
+    # but rather a way to see all hours with a simpler approach.
+    def get_money_hour_data(self, rate, tot_hrs_str, tot_hrs_1_1_2=None, tot_hrs_2=None):
         """incraments a value based off of the total hrs worked. This simplifies the
         process of obtaining data for a scatter plot."""
         pay_data = []
         value = 0
-        for hour in range(1, total_hours+1):
-            value += rate
-            pay_data.append(value)
+        if tot_hrs_str:
+            for hour in range(1, tot_hrs_str+1):
+                value += rate
+                pay_data.append(value)
+
+        if tot_hrs_1_1_2:
+            for hour in range(1, tot_hrs_1_1_2+1):
+                value += (rate * self.ot_1_5)
+                pay_data.append(value)
+
+        if tot_hrs_2:
+            for hour in range(1, tot_hrs_2+1):
+                value += (rate * self.ot_2)
+                pay_data.append(value)
+        # this seems to work well. Adds the time accordning to the actual hour worked specific
+        # to the time of hr str 1-1/2 or double. adds in chrono order
         return pay_data
 
-new_money = GetPayData(42, 0)
-get_data = new_money.get_money_hour_data(42, 40)
-print(get_data)
-    
+# ex: use
+# pd = GetPayData()
+# hr_data = pd.format_hrs_list()
+# pd.get_rate_to_hour_data(hr_data)

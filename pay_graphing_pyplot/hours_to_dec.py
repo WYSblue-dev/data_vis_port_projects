@@ -1,23 +1,49 @@
 import matplotlib.pyplot as plt
 
-months_data = list(range(1,11))
-weeks_data = [month*4 for month in months_data] 
-# we were given a ValueError here due to mismathch of 
-# second values in the range in other words matplotlib needs 
-# the same number of indexed elements to properly function. 
-# So be sure to have the same number of elements. print calls with len would
-# seem to porbably prove to be usful in this manner wioht a conditiona;l test.
+# not needed since datetime calls this internally
+# from time import time
+
+from datetime import datetime as dt
+
+# I know - time.time() produces epoch which .now() does this for us
+date = dt.now()
+
+# duh
+weeks_in_year = 52
+
+# need to know what this [1] in particutlar is doing here.
+# after typing a comment later realize it's pulling value from tuple
+current_week = date.isocalendar()[1]
+# simple print call to show week
+print(current_week)
+
+
+# our weeks equals a list ranging from the current weeks gotten from
+# isocalender()[1] which is a formatted tuple with (year, week num, week day)
+# +1 is due top how the range function works.
+weeks = list(range(current_week, weeks_in_year+1))
+# simple print call to show weeks list
+print(weeks)
+print(len(weeks))
+
+#current_weeks_left =  52 - (current number being looped over in weeks)
+# the list comprehension here is nice because it lets us manage the process of
+# doing the arithimitic easliy. this list wil also be as long as the 
+current_weeks_left = [weeks_in_year - w for w in weeks]
+# simple print call to show the list we've obtained
+print(current_weeks_left)
+print(len(current_weeks_left))
 
 plt.style.use('ggplot')
 
 fig, ax = plt.subplots()
 
-ax.plot(weeks_data, months_data, linewidth=2)
+ax.plot(weeks, current_weeks_left, linewidth=2)
 
-ax.set_title("Time Visual Representation".upper(), fontsize=16)
+ax.set_title("Time Visual Representation".upper(), fontsize=18)
 
-ax.set_xlabel("Weeks Remaining", fontsize=12)
-ax.set_ylabel("Months Remaining", fontsize=12)
+ax.set_xlabel("Weeks Remaining", fontsize=16)
+ax.set_ylabel("Total Weeks Remaining", fontsize=16)
 
 ax.tick_params(labelsize=18)
 

@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 
+# this needs to be revised and look over for understanding.
+
 sizes = [15, 30, 45, 10]
 labels = ['Frogs', 'Hogs', 'Dogs', 'Logs']
 colors = ['gold', 'yellowgreen', 'lightcoral', 'lightskyblue']

@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 
 from pyplot_plots.random_walk import RandomWalk as RW
+
 while True:   
     rw = RW(num_points=5_000)
     rw.run_walk()
