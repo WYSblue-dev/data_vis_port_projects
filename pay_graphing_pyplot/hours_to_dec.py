@@ -20,8 +20,9 @@ print(current_week)
 
 # our weeks equals a list ranging from the current weeks gotten from
 # isocalender()[1] which is a formatted tuple with (year, week num, week day)
-# +1 is due top how the range function works.
+# +1 is due to how the range function works.
 weeks = list(range(current_week, weeks_in_year+1))
+
 # simple print call to show weeks list
 print(weeks)
 print(len(weeks))
@@ -38,12 +39,16 @@ plt.style.use('ggplot')
 
 fig, ax = plt.subplots()
 
-ax.plot(weeks, current_weeks_left, linewidth=2)
+ax.plot(weeks, current_weeks_left, linewidth=2, linestyle='-.')
 
 ax.set_title("Time Visual Representation".upper(), fontsize=18)
 
-ax.set_xlabel("Weeks Remaining", fontsize=16)
-ax.set_ylabel("Total Weeks Remaining", fontsize=16)
+ax.set_xlabel("Total Weeks In year", fontsize=16)
+ax.set_ylabel("Weeks Left", fontsize=16)
+
+# ax.invert_xaxis()
+
+ax.set_aspect('equal')
 
 ax.tick_params(labelsize=18)
 

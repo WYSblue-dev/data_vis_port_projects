@@ -14,19 +14,21 @@ class RandomWalk:
     def run_walk(self):
         """Used to generate the data itself to stor with our atts."""
         while len(self.y_val) < self.num_points:
-            x_direction = [10, -1]
-            x_distance = [0, 1, 2, 3, 4, 5]
-            x_val = choice(x_direction) * choice(x_distance)
+            x_step = self.get_step()
+            y_step = self.get_step()
 
-            y_direction = [1, -1]
-            y_distance = [0, 1, 2, 3, 4, 5]
-            y_val = choice(y_direction) * choice(y_distance)
-
-            if x_val and y_val == 0:
+            if x_step and y_step == 0:
                 continue
 
-            x = self.x_val[-1] + x_val
-            y = self.y_val[-1] + y_val
+            x = self.x_val[-1] + x_step
+            y = self.y_val[-1] + y_step
 
             self.x_val.append(x)
             self.y_val.append(y)
+
+    def get_step(self):
+        """gets the random step int we need for a random walk."""
+        direction = [1, -1]
+        distance = [0, 1, 2, 3, 4, 5]
+        step = choice(direction) * choice(distance)
+        return step
