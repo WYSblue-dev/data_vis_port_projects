@@ -7,7 +7,7 @@ die_2 = Die()
 die_3 = Die()
 
 results = []
-for roll in range(1,6_000_001):
+for roll in range(1,600_001):
     roll = die_1.roll_die() * die_2.roll_die() * die_3.roll_die()
     results.append(roll)
 
@@ -21,6 +21,7 @@ for frequnecy in possible_rolls:
 
 title = 'rolling 3 d6 die'.title()
 labels = {'x':'Possible Value', 'y':'Frequency'}
+
 fig = px.bar(x=possible_rolls, y=frequencies, title=title, labels=labels, opacity=.5)
 
 fig.update_layout(xaxis_dtick=1)
