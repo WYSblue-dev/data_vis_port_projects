@@ -43,13 +43,13 @@ plt.tick_params(labelsize=12)
 # set the rsange for each axis
 ax.axis([0, 1100, 0, 10_000_000])
 # changes the notation of the ticks trad is 'sci'
-ax.ticklabel_format(style='plain') 
+ax.ticklabel_format(style='plain')
 
 # let's import patlib to write it anywhere on our file system like a all_plots dir
-output_file = Path("/Users/wjerriii/Desktop/all_plots/scatter_squares.png")
+# output_file = Path("all_plots/scatter_squares.png")
 
 # this saves our plot as a .png to the same working directory the script is in.
-plt.savefig(output_file, bbox_inches='tight')
+# plt.savefig(output_file, bbox_inches='tight')
 
 # this is a new merthod that we discovered through perplexity it makes it to where our
 # information we display with our labels is visible when showinf through the viewer
