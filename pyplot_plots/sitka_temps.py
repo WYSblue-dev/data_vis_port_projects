@@ -24,9 +24,10 @@ for index, colum_row in enumerate(header_row):
     # simple print proof
     print(index, colum_row)
 
-# empty list to adds the tmax values to
+# empty list to adds the tmax, dates, lows values to
 highs = []
 dates = []
+lows = []
 
 # we loop over the lists(rows) ew've obtained from reader and now knpw their 
 # indexes to properly obtain the data.
@@ -35,3 +36,5 @@ for row in reader:
     highs.append(high)
     date = dt.strptime(row[2], '%Y-%m-%d')
     dates.append(date)
+    low = int(row[5])
+    lows.append(low)

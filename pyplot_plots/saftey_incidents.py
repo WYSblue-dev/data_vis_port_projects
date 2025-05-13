@@ -32,9 +32,9 @@ ax.set_ylabel("Frequency of Incidents", fontsize=16)
 
 ax.legend()
 
-path = Path(f'pyplot_images/{input(file_prompt)}')
+# path = Path(f'pyplot_images/{input(file_prompt)}')
 
-plt.savefig(path)
+# plt.savefig(path)
 
 # displaying plot through the viewer.
 plt.show()
