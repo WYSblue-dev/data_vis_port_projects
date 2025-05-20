@@ -36,8 +36,6 @@ for row in reader:
         date = dt.strptime(row[2], '%Y-%m-%d')
     except ValueError:
         print(f"Missing data for {date} values(h,l) - {high} {low}")
-        print(header_row)
-        print(row)
     else:
         highs_dv.append(high)
         lows_dv.append(low)
@@ -56,7 +54,7 @@ ax.fill_between(dates_dv, highs_dv, lows_dv, facecolor='black', alpha=.3)
 # notice we utilize 2 plots here with the same x values passed and the way
 # that iinteracts with the autofmt_xdate seems important
 # we just learned about alpha here as well which controls the colors trsansperency
-# alpha work from 0-1 1 being completely gone.
+# alpha work from 0-1 1 being completely viewable.
 ax.plot(sitka_dates, sitka_highs, linewidth=1.5, color='black', alpha=0.8, label='Sitka Highs')
 ax.plot(sitka_dates, sitka_lows, linewidth=1.5, color='blue', alpha=0.8, label='Sitka Lows')
 # facecolor is a new kwarg specific to the fill_between methos as far as I know

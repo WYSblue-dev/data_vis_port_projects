@@ -15,6 +15,7 @@ title = str(time)
 labels = {'x':'x_axis', 'y':'virt_dir'}
 
 fig = px.line(x=rw.x_points, y=rw.y_points, labels=labels, title=title)
+
 fig.update_traces(line_color='red')
 
 fig.update_layout(

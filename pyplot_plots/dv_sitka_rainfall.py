@@ -63,7 +63,7 @@ plt.style.use("seaborn-v0_8")
 fig, ax = plt.subplots(figsize=(15,8))
 
 ax.plot(dates_dv, rain_days_dv, color='red', linewidth=1.5, alpha=1, label='Death Val')
-ax.plot(dates_sit, rain_days_sit, color='limegreen', linewidth=1.5, alpha=1, label='Rainfall Sit')
+ax.plot(dates_sit, rain_days_sit, color='limegreen', linewidth=1.5, alpha=1, label='Sitka')
 
 ax.set_title("Rain in Sit and Death Val", fontsize=24)
 

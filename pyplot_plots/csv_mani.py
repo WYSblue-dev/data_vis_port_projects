@@ -14,8 +14,8 @@ class CsvData():
         # it will be worth looking at what to do if the file doesnt exist
         self.path = Path(pathname)
         self.lines = self._check_path_get_content()
-
         self.reader = csv.reader(self.lines)
+        self.header_row = self._get_header_row()
 
         self.unique_id = None
 
@@ -25,18 +25,29 @@ class CsvData():
             try:
                 lines = self.path.read_text(encoding='utf-8').splitlines()
             except FileNotFoundError:
-                print(f"The file path given doesn't exist or there's a typo.\n{input('path: ')}")
+                self.path = Path(input(f"The file path given doesn't exist or there's a typo.\npath: "))
                 continue
             else:
                 return lines
                 break
 
-    def get_show_header_row(self):
+    def _get_header_row(self):
         """Used to get the colum(cata) assignes to its corresponding index."""
-        self.header_row = next(self.reader)
+        return next(self.reader)
+
+    def show_header_row(self):
+        """Shows us e the header row conviently."""
         for index, colum_name in enumerate(self.header_row):
             print(index, colum_name)
 
+    def _check_unique_ids(self):
+        """Used to check if the date persist. If it doesn't then we'll have to have the user
+        inpu the catagory they prefer from the options in the terminal ehih would be the 
+        header row."""
+        for colum_name in self.header_row:
+            if colum_name.lower() == 'date':
+                
+            
     def index_csv_data(self, unique_id):
         """Used to index the csv data to be able work with it more effiecently instead of 
         looping over the reader every time. Dictionaries would seem to be beneficial.
@@ -44,5 +55,12 @@ class CsvData():
         ID we wnt though we need to use the get_show_header_row(). After looking at the results we
         can determine what we want our unique id to be. With that being said we could add a prompt
         in the terminal to select the index of unique ids we want to use. something like to show
-        the header row make the decision and then format the data."""
-        
+        the header row make the decision and then format"""
+        dates = []
+        for row in self.reader:
+            unique_id = dt.strptime(row[2], '%Y-%m-%d')
+            dates.append(unique_id)
+
+csv_data = CsvData('/Users/wjerriii/Desktop/sitka_weather_2021_full.csv')
+csv_data.show_header_row()
+csv_data._check_unique_ids()
