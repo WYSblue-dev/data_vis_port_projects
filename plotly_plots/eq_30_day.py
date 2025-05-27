@@ -1,7 +1,6 @@
 from pathlib import Path
 import json
 from datetime import datetime as dt
-import time
 
 import plotly.express as px
 
@@ -36,6 +35,6 @@ fig.update_layout(title_font_color='red')
 
 fig.show()
 
-pretty_json = json.dumps(json_data, indent=4)
 new_path = Path('data_files/eq_data/readable_eq_30.json')
-new_path.write_text(pretty_json)
+
+fig.write_html(new_path)

@@ -10,7 +10,8 @@ from pay_generator import GetPayData
 
 # obtaining data from class we created from scratch
 pd = GetPayData(42)
-hour_data = pd.format_hrs_list()
+hour_data = pd.get_format_hrs_list()
+
 rate_at_hour_data = pd.get_rate_to_hour_data(hour_data)
 
 plt.style.use("seaborn-v0_8-darkgrid")

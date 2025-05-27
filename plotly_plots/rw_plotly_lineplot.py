@@ -1,9 +1,9 @@
-import plotly.express as px
-
 # used to see what graphs are made when simply
 from datetime import datetime as dt
-
 from rw import RandomWalk as RW
+
+import plotly.express as px
+
 
 time = dt.now()
 

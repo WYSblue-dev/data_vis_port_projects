@@ -9,11 +9,12 @@ import pandas as pd # need to review this to work wiht dataframes when ready.
 
 
 # san diego csv data
-path = Path('/Users/wjerriii/Desktop/san_diego_ca.csv')
+path = Path('data_files/csv_data/weather_related/san_diego_ca.csv')
 lines = path.read_text(encoding='utf-8').splitlines()
 reader = csv.reader(lines)
 header_row = next(reader)
 
+# index is crucial for flex
 date_index = header_row.index('DATE')
 temp_high_index = header_row.index('TMAX')
 temp_low_index = header_row.index('TMIN')
@@ -32,7 +33,7 @@ for row in reader:
         temp_highs_s.append(temp_high)
         temp_lows_s.append(temp_low)
 
-path = Path('/Users/wjerriii/Desktop/zanesville_oh.csv')
+path = Path('data_files/csv_data/weather_related/zanesville_oh.csv')
 lines = path.read_text(encoding='utf-8').splitlines()
 reader = csv.reader(lines)
 

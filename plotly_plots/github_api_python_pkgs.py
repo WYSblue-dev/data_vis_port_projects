@@ -138,4 +138,4 @@ print(f"web_commit_signoff_required - {repo_dicts[0]['web_commit_signoff_require
 print()
 
 for key, value in repo_dicts[0].items():
-    print(f"Key - {key}, Value - {value}")
+    print(f"{key} - {value}\n\n")

@@ -1,5 +1,4 @@
 from pathlib import Path
-
 from datetime import datetime as dt
 
 import plotly.express as px

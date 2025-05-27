@@ -45,7 +45,8 @@ class CsvData():
         inpu the catagory they prefer from the options in the terminal ehih would be the 
         header row."""
         for colum_name in self.header_row:
-            if colum_name.lower() == 'date':
+            if colum_name.index('date') == 'date':
+                return True
                 
             
     def index_csv_data(self, unique_id):
@@ -60,7 +61,3 @@ class CsvData():
         for row in self.reader:
             unique_id = dt.strptime(row[2], '%Y-%m-%d')
             dates.append(unique_id)
-
-csv_data = CsvData('/Users/wjerriii/Desktop/sitka_weather_2021_full.csv')
-csv_data.show_header_row()
-csv_data._check_unique_ids()
